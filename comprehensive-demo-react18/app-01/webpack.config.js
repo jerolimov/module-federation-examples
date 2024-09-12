@@ -66,6 +66,9 @@ module.exports = {
 
   plugins: [
     isDevelopment && new ReactRefreshWebpackPlugin(),
+    // new webpack.NormalModuleReplacementPlugin(/.*/, function (resource) {
+    //   console.log('request', request);
+    // }),
     new ModuleFederationPlugin({
       name: 'app_01',
       filename: 'remoteEntry.js',
@@ -74,24 +77,116 @@ module.exports = {
         app_03: 'app_03@http://localhost:3003/remoteEntry.js',
         app_04: 'app_04@http://localhost:3004/remoteEntry.js',
         app_05: 'app_05@http://localhost:3005/remoteEntry.js',
+        // '@mui/material/Button': 'resolve'
       },
       exposes: {
         './SideNav': './src/SideNav',
         './Page': './src/Page',
       },
       shared: {
-        ...deps,
-        '@material-ui/core': {
+        // ...deps,
+        react: {
+          eager: true,
           singleton: true,
-        },
-        'react-router-dom': {
-          singleton: true,
+          version: '*'
         },
         'react-dom': {
+          eager: true,
           singleton: true,
+          version: '*'
         },
-        react: {
+        'react-router-dom': {
+          eager: true,
           singleton: true,
+          version: '*'
+        },
+
+        '@material-ui/core': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+
+        '@mui/material': {
+          eager: true,
+          shareKey: '@mui/material',
+          shareScope: '@mui/material',
+          singleton: true,
+          version: '*'
+        },
+        '@mui/material/Button': {
+          eager: true,
+          shareKey: '@mui/material',
+          shareScope: '@mui/material',
+          singleton: true,
+          version: '*'
+        },
+        '@mui/material/colors': {
+          eager: true,
+          shareKey: '@mui/material',
+          shareScope: '@mui/material',
+          singleton: true,
+          version: '*'
+        },
+        '@mui/material/styles': {
+          eager: true,
+          shareKey: '@mui/material',
+          shareScope: '@mui/material',
+          singleton: true,
+          version: '*'
+        },
+
+        // '@mui/material': singletonAnyVersion,
+        // '@mui/material/styles': singletonAnyVersion,
+        '@emotion/cache': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+        '@emotion/css': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+        '@emotion/react': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+        '@emotion/serialize': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+        '@emotion/memoize': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+        '@emotion/weak-memoize': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+        '@emotion/sheet': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+        '@emotion/provider': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+        '@emotion/styled': {
+          eager: true,
+          singleton: true,
+          version: '*'
+        },
+        '@emotion/utils': {
+          eager: true,
+          singleton: true,
+          version: '*'
         },
       },
     }),

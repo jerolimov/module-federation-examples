@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Button,
   Dialog,
@@ -5,9 +6,35 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@material-ui/core';
+} from '@mui/material';
+import { createTheme, ThemeProvider, useTheme, useThemeProps } from '@mui/material/styles';
+import green from '@mui/material/colors/green';
+import red from '@mui/material/colors/red';
 
-import React from 'react';
+const outertheme = createTheme({
+  palette: {
+    primary: green,
+  },
+});
+
+const theme = createTheme({
+  palette: {
+    primary: red,
+  },
+});
+
+function PrintThemeDetails() {
+  const theme = useTheme();
+  console.log('PrintThemeDetails theme', theme);
+  return (
+    <div>
+      <h3>Theme Details</h3>
+      <span style={{ color: theme.palette.primary.main }}>
+        primary main: {theme.palette.primary.main}
+      </span>
+    </div>
+  );
+}
 
 function DialogComponent() {
   const [open, setOpen] = React.useState(false);
@@ -22,9 +49,25 @@ function DialogComponent() {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        Open Dialog
-      </Button>
+      <br/>
+      <br/>
+      <br/>
+      <ThemeProvider theme={outertheme}>
+        <Button variant="contained" color="primary" onClick={handleClickOpen}>
+          Open Dialog (outer)
+        </Button>
+        <PrintThemeDetails />
+        <br/>
+        <br/>
+        <ThemeProvider theme={theme}>
+          <Button variant="contained" color="primary" onClick={handleClickOpen}>
+            Open Dialog (new theme provider)
+          </Button>
+          <PrintThemeDetails />
+          <br/>
+          <br/>
+        </ThemeProvider>
+      </ThemeProvider>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Dialog Example</DialogTitle>
         <DialogContent>

@@ -74,17 +74,20 @@ module.exports = {
         './Tabs': './src/Tabs',
       },
       shared: {
-        ...deps,
-        '@material-ui/core': {
-          singleton: true,
-        },
-        'react-router-dom': {
+        // ...deps,
+        react: {
           singleton: true,
         },
         'react-dom': {
           singleton: true,
         },
-        react: {
+        'react-router-dom': {
+          singleton: true,
+        },
+        '@material-ui/core': {
+          singleton: true,
+        },
+        '@mui/material': {
           singleton: true,
         },
       },
